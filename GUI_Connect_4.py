@@ -107,11 +107,12 @@ def checkH():
 def checkV():
     global board
     check = []
-    for col in range(len(board)):
+    for col in range(len(board[0])):
         for i in range(3):
             for j in range(4):
                 check.append(board[i+j][col])
             if '-' not in check:
+                #print(check)
                 if (check[0] == check[1] == check[2] == check[3]):
                     return True
             check = []
@@ -158,7 +159,7 @@ def main():
         for box in row:
             print(box, end=' ')
         print('')
-        
+      
     
     #turn(player)
     
@@ -193,11 +194,16 @@ while run:
         if event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
             turn(player)
+            '''
+            for row in board:
+                print(row)
             #print(pos)
+            '''
 
          
             
     drawBoard(board)
+    
     pygame.display.update()
     if checkWin():
         '''
@@ -212,7 +218,8 @@ while run:
         elif player == 'O':
             player = 'Red'
         pygame.draw.rect(window, black, (0,0,width, squareSize))
-        font = pygame.font.Font('freesansbold.ttf', int(squareSize))
+        
+        font = pygame.font.SysFont('Sans', int(squareSize*0.5))
         text = font.render(player+' wins!!', True, white, black)
         textRect = text.get_rect()
         textRect.center = (width//2, squareSize//2)
@@ -221,6 +228,7 @@ while run:
  #       pygame.time.wait(3000)
 
         print(player+' wins!!!')
+        
         run = False
         game_over = True
     #if invalid:       
@@ -235,7 +243,7 @@ while run:
             break
         if tie:
             pygame.draw.rect(window, black, (0,0,width, squareSize))
-            font = pygame.font.Font('freesansbold.ttf', int(squareSize))
+            font = pygame.font.SysFont('Sans', int(squareSize*0.5))
             text = font.render("It's a tie", True, white, black)
             textRect = text.get_rect()
             textRect.center = (width//2, squareSize//2)
